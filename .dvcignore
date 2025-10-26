@@ -1,0 +1,7 @@
+# DVC 忽略文件
+*.pyc
+__pycache__
+.DS_Store
+.ipynb_checkpoints
+mlruns/
+*.log

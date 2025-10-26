@@ -1,0 +1,17 @@
+name: house-price-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyter
+  - pip:
+    - mlflow
+    - dvc
+    - python-dotenv
