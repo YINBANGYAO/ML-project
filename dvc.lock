@@ -1,0 +1,80 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python scripts/preprocess.py
+    deps:
+    - path: data/raw/housing.csv
+      hash: md5
+      md5: d1c47305887e2252bf1ccbd74ff159a6
+      size: 1423529
+    - path: scripts/preprocess.py
+      hash: md5
+      md5: 12ac9f3b45a6ac32a2012114d4398490
+      size: 4183
+    params:
+      params.yaml:
+        preprocess.random_state: 42
+        preprocess.test_size: 0.2
+    outs:
+    - path: data/processed/scaler.pkl
+      hash: md5
+      md5: 256db3b93ac2c8564705c5fa602ea598
+      size: 845
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 995202bec7db9757e50e17469e617ef4
+      size: 699724
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 13679879e74032d653b297634a2fba03
+      size: 2798649
+  train:
+    cmd: python scripts/train.py
+    deps:
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 13679879e74032d653b297634a2fba03
+      size: 2798649
+    - path: scripts/train.py
+      hash: md5
+      md5: c35fb78915c62d0b94b28a3b8cf29fa3
+      size: 4159
+    params:
+      params.yaml:
+        train.model_type: random_forest
+        train.random_state: 42
+        train.test_size: 0.2
+    outs:
+    - path: models/best_model.pkl
+      hash: md5
+      md5: 801d62d59c6c07b6f871261b1832a8da
+      size: 10107686
+    - path: models/feature_importance.png
+      hash: md5
+      md5: e82dff65771f236f373b0c1f21c091f8
+      size: 28322
+  evaluate:
+    cmd: python scripts/evaluate.py
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 995202bec7db9757e50e17469e617ef4
+      size: 699724
+    - path: models/best_model.pkl
+      hash: md5
+      md5: 801d62d59c6c07b6f871261b1832a8da
+      size: 10107686
+    - path: scripts/evaluate.py
+      hash: md5
+      md5: eefa4dfb8bf4359ac4a671c97b187926
+      size: 2672
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: b4af0feadb72b41eb232943550dd0808
+      size: 106
+    - path: plots/
+      hash: md5
+      md5: 2f3af956fe6ea4250ef617cdbb8363fe.dir
+      size: 270664
+      nfiles: 1

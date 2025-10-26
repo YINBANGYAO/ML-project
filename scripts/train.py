@@ -20,8 +20,8 @@ def load_params():
 def load_data():
     """加载处理后的数据"""
     train_data = pd.read_csv('data/processed/train.csv')
-    X_train = train_data.drop('MedHouseVal', axis=1)
-    y_train = train_data['MedHouseVal']
+    X_train = train_data.drop('median_house_value', axis=1)
+    y_train = train_data['median_house_value']
     return X_train, y_train
 
 def get_model(model_type, model_params):

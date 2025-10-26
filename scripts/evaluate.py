@@ -12,8 +12,8 @@ from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 def load_data():
     """加载测试数据"""
     test_data = pd.read_csv('data/processed/test.csv')
-    X_test = test_data.drop('MedHouseVal', axis=1)
-    y_test = test_data['MedHouseVal']
+    X_test = test_data.drop('median_house_value', axis=1)
+    y_test = test_data['median_house_value']
     return X_test, y_test
 
 def load_model():
