@@ -13,9 +13,9 @@ stages:
       - data/processed/scaler.pkl
 
   train:
-    cmd: python scripts/train.py
+    cmd: python scripts/train2.py
     deps:
-      - scripts/train.py
+      - scripts/train2.py
       - data/processed/train.csv
     params:
       - train.model_type

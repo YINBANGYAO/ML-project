@@ -10,8 +10,30 @@ import seaborn as sns
 import yaml
 import pickle
 import os
+import time
 import json
+def wait_for_mlflow(max_retries=30, delay=2):
+    """等待 MLflow 服务器启动"""
+    import requests
+    for i in range(max_retries):
+        try:
+            response = requests.get("http://mlflow:5000")
+            if response.status_code == 200:
+                print("✓ MLflow 服务器已就绪")
+                return True
+        except:
+            pass
+        print(f"等待 MLflow 服务器启动... ({i+1}/{max_retries})")
+        time.sleep(delay)
+    print("✗ MLflow 服务器启动超时")
+    return False
 
+def main():
+    # 等待 MLflow 服务器启动
+    if not wait_for_mlflow():
+        print("继续本地运行（不记录到 MLflow）")
+        # 设置本地跟踪
+        mlflow.set_tracking_uri("file:///app/mlruns")
 def load_params():
     """加载参数文件"""
     with open('params.yaml', 'r') as f:
