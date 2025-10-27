@@ -34,7 +34,7 @@ jobs:
         pytest tests/ -v --cov=scripts
   build-docker-image:
     runs-on: ubuntu-latest
-    needs: test # 这表示构建镜像依赖于测试任务的成功
+    needs: test # 依赖于测试任务
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -44,4 +44,5 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t house-price-app .
+        # 使用正确的 Dockerfile 路径
+        docker build -t house-price-app -f docker/Dockerfile .
